@@ -1,0 +1,23 @@
+- present post do |_post|
+  .row-fluid
+    .span12
+      %h4= link_to post.title, post
+  .row-fluid
+    .span12.well
+      =_post.formatted_body if post.body
+  .row-fluid
+    .span12
+      %ul.btn-group
+        - if post.comments.any?
+          %li.btn= link_to "replies (#{post.cached_flat_related_comments.count})", [post, :comments]
+        - else
+          %li.btn.disabled= link_to "replies (0)", '#'
+        - if post.persisted? && post.cached_author == current_user
+          - if Time.now.to_i - post.created_at.to_i < 300
+            %li.btn= link_to "edit", edit_post_path(post)
+          %li.btn= link_to 'destroy', post, :confirm => 'Are you sure?', :method => :delete, "data-disable-with" => "destroying ..."
+      .pull-right
+        By: #{_post.author_link}
+        = _post.relative_created_at
+        = link_to "reply", [:new, post, :comment]
+  %hr

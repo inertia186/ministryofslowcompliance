@@ -1,0 +1,14 @@
+%legend Change your password
+.row-fluid
+  .span12
+
+    = horizontal_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+      = devise_error_messages!
+      = f.hidden_field :reset_password_token
+      = f.h_password_field :password, label: 'New Password', :autofocus => true
+      = f.h_password_field :password_confirmation, label: 'Confirm New Password'
+
+      .form-actions
+        = f.submit 'Change My Password', class: 'btn btn-success', "data-disable-with" => "Changing Your Password ..."
+
+= render "devise/shared/links"

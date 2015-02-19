@@ -1,0 +1,11 @@
+%legend Comments
+.row-fluid
+  .span2
+    = link_to "New Reply", [:new, @commentable, :comment], class: 'btn btn-success'
+  .span10
+    = render partial: 'commentable', object: @commentable
+    - if @comments.empty?
+      %p No comments ...
+    -else
+      .indent= render partial: :comment, collection: @comments
+      =will_paginate @comments

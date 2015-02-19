@@ -1,0 +1,5 @@
+- present @commentable do |_commentable|
+  Replies to: #{_commentable.author_link}, Re: #{@commentable.original_post.title}
+  
+  .well
+    = _commentable.formatted_body

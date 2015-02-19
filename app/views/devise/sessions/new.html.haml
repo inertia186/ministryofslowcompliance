@@ -1,0 +1,15 @@
+%legend Sign in
+.row-fluid
+  .span12
+
+    = horizontal_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      = f.h_email_field :email, :autofocus => true
+      = f.h_password_field :password
+
+      - if devise_mapping.rememberable?
+        = f.h_check_box :remember_me
+
+      .form-actions
+        = f.submit 'Sign In', class: 'btn btn-success', "data-disable-with" => "Signing in ..."
+
+= render "devise/shared/links"

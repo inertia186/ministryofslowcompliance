@@ -1,0 +1,33 @@
+%legend Edit #{resource_name.to_s.humanize}
+.row-fluid
+  .span10
+
+    = horizontal_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+      = devise_error_messages!
+      = f.h_text_field :nickname, :autofocus => true
+      = f.h_email_field :email
+
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+      .control-group
+        = f.label :password, {class: 'control-label'}
+        .controls
+          = f.password_field :password, :autocomplete => "off"
+          .help-inline (leave blank if you don't want to change it)
+
+      = f.h_email_field :password_confirmation
+
+      .control-group
+        = f.label :current_password, {class: 'control-label'}
+        .controls
+          = f.password_field :current_password
+          .help-inline (we need your current password to confirm your changes)
+
+      .form-actions
+        = f.submit 'Update My Account', class: 'btn btn-primary', "data-disable-with" => "Saving ..."
+        = link_to 'Cancel', :back, class: 'btn'
+
+  .span2
+    =button_to "Cancel My Account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: 'btn btn-danger', "data-disable-with" => "Cancelling ..."
+

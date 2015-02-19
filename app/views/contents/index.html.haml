@@ -1,0 +1,21 @@
+- if @author.present?
+  %legend Latest Posts By #{@author.nickname}
+- else
+  %legend What's New ...
+.row-fluid
+  .span10
+    - unless @posts.empty?
+      = render partial: 'posts/post', collection: @posts
+    =will_paginate @posts
+  .span2
+    = link_to "New Post", new_post_path, class: 'btn btn-success'
+    %hr    
+    - unless @top_authors.empty?
+      .well
+        %ul.nav.nav-list
+          %li.nav-header Top authors
+          - @top_authors.each do |author|
+            %li=link_to author.nickname, search_by_author_path(author)
+%hr
+%small
+  %i "We'll get there when we get there ..."

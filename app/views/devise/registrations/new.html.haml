@@ -1,0 +1,16 @@
+%legend Sign up
+.row-fluid
+  .span12
+
+    = horizontal_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+      = devise_error_messages!
+      = f.h_text_field :nickname, :autofocus => true
+      = f.h_email_field :email
+      = f.h_password_field :password
+      = f.h_password_field :password_confirmation
+
+      .form-actions
+        = f.submit 'Sign Up', class: 'btn btn-primary', "data-disable-with" => "Signing Up ..."
+        = link_to 'Cancel', :back, class: 'btn'
+
+= render "devise/shared/links"

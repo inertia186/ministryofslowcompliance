@@ -1,0 +1,27 @@
+%legend Post
+.row-fluid
+  .span2
+    = link_to "New Reply", [:new, @post, :comment], class: 'btn btn-success'
+  .span10
+    - present @post do |_post|
+      %p
+        By:
+        =_post.author_link
+      %p
+        Title:
+        =@post.title
+      .well
+        =_post.formatted_body
+
+    - if @post.comments.empty?
+      %p No comments ...
+    -else
+      .indent= render partial: '/comments/comment', collection: @post.comments.latest
+        
+%hr
+
+= link_to "reply", [:new, @post, :comment]
+|
+= link_to "show replies", [@post, :comments]
+|
+= link_to "Back", :back

@@ -1,0 +1,11 @@
+= render partial: 'commentable', object: @comment.commentable
+= horizontal_form_for @action do |f|
+  = f.h_text_area :body, :autofocus => true, class: 'input-block-level'
+  %small
+    Note:
+    = link_to 'Markdown Allowed', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: 'cheatsheet'
+  .form-actions
+    = f.submit class: 'btn btn-primary', "data-disable-with" => "Saving ..."
+    = link_to 'Cancel', posts_path, class: 'btn'
+    - if @comment.persisted? && @comment.cached_author == current_user
+      = link_to 'Destroy', @comment, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger pull-right', "data-disable-with" => "Destroying ..."

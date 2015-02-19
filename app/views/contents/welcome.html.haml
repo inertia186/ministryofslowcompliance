@@ -1,0 +1,27 @@
+!!! 5
+%html
+  %head
+    %title Ministry of Slow Compliance
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = analytics_init if Rails.env.production?
+    = csrf_meta_tags
+  %body{style: 'padding-top: 20px;'}
+    .container
+      .hero-unit
+        %h1 Welcome ...
+        %p ... to Ministry of Slow Compliance
+        %p= link_to 'Learn More', about_path, class: 'btn btn-primary btn-large'
+
+        = link_to "Sign in", new_user_session_path
+        %br
+
+        = link_to "Sign up", new_user_registration_path
+        %br
+
+        = link_to "Forgot your password?", new_user_password_path
+        %br
+
+        = link_to "Didn't receive confirmation instructions?", new_user_confirmation_path
+        %br
+        

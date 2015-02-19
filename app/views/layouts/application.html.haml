@@ -1,0 +1,56 @@
+!!! 5
+%html
+  %head
+    %title Ministry of Slow Compliance
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = analytics_init if Rails.env.production?
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          = link_to 'Ministry of Slow Compliance', root_path, class: 'brand'
+          %ul.nav
+            %li= link_to "About" , about_path
+          - if user_signed_in?
+            %ul.nav
+              %li= link_to "Your Posts" , posts_path
+          .pull-right
+            %ul.nav.pull-right
+              - if user_signed_in?
+                %li.dropdown
+                  = link_to "#", class: "dropdown-toggle", data: {toggle: 'dropdown'} do
+                    #{current_user.email}
+                    %b.caret
+                  %ul.dropdown-menu
+                    %li
+                      = link_to edit_user_registration_path do
+                        %i.icon-edit
+                        Account
+                    %li.divider
+                    %li
+                      = link_to user_sign_out_path do
+                        %i.icon-off
+                        Sign out
+              - else
+                %li
+                  = link_to new_user_registration_path do
+                    %i.icon-pencil
+                    Sign up
+                %li.divider
+                %li
+                  = link_to new_user_session_path do
+                    %i.icon-hand-right
+                    Sign In
+                    
+
+    .container
+      = display_flash
+      = yield
+      .footer
+        .container
+          .details{style: "text-align: center; font-size: 80%; color: #AAA; margin-top: 24px; margin-bottom: 6px;"}
+            Ministry of Slow Compliance ::
+            Martin Studio ::
+            = link_to 'Creative Commons Attribution 3.0 License', 'http://creativecommons.org/licenses/by/3.0/', 'data-container' => 'body', 'data-toggle' => 'popover', 'data-placement' => 'left', 'data-html' => true, 'data-trigger' => 'click hover focus manual', 'data-content' => license_tooltip

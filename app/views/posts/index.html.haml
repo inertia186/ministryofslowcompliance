@@ -1,0 +1,21 @@
+%legend Your Latest Posts
+.row-fluid
+  .span2
+    = link_to "New Post", new_post_path, class: 'btn btn-success'
+  .span10
+    %section.filter
+      = form_tag search_posts_path, :method => :get, class: 'form-horizontal' do
+        %fieldset
+          .control-group
+            .controls.form-inline
+              %i.icon-search
+              %strong
+                Search By:
+              =text_field_tag "search_text", @search_text
+              =submit_tag "Search", "data-disable-with" => "Searching ...", class: 'btn'
+
+    - if @posts.empty?
+      %p No posts matching this criteria.
+    -else
+      = render partial: 'post', collection: @posts
+      =will_paginate @posts

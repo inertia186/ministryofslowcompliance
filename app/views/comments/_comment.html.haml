@@ -1,0 +1,22 @@
+- present comment do |_comment|
+  .row-fluid
+    .span12.well
+      =_comment.formatted_body if comment.body
+  .row-fluid
+    .span12
+      %ul.btn-group
+        - if comment.comments.any?
+          %li.btn= link_to "replies (#{comment.cached_flat_related_comments.count})", [comment, :comments]
+        - else
+          %li.btn.disabled= link_to "replies (0)", '#'
+        - if comment.persisted? && comment.cached_author == current_user
+          - if Time.now.to_i - comment.created_at.to_i < 300
+            %li.btn= link_to "edit", edit_comment_path(comment)
+          %li.btn= link_to 'destroy', comment, :confirm => 'Are you sure?', :method => :delete, class: 'pull-right', "data-disable-with" => "destroying ..."
+      .pull-right
+        By: #{_comment.author_link}
+        = _comment.relative_created_at
+        = link_to "reply", [:new, comment, :comment]
+  %hr
+.indent= render partial: 'comments/comment', collection: comment.comments.latest
+  

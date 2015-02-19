@@ -1,0 +1,12 @@
+%legend Resend unlock instructions
+.row-fluid
+  .span12
+
+    = horizontal_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
+      = devise_error_messages!
+      = f.h_email_field :email, :autofocus => true
+
+      .form-actions
+        = f.submit 'Resend unlock instructions', class: 'btn btn-success', "data-disable-with" => "Sending instructions ..."
+
+= render "devise/shared/links"
